@@ -30,6 +30,9 @@ footer {
   Пока используется простой светло-серый фон.
 */
 header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   background-color: var(--color-surface);
 }
 
@@ -46,7 +49,12 @@ footer {
   чтобы оно не растягивалось слишком сильно на широких экранах.
 */
 .site-header {
-  max-width: 1100px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  max-width: var(--container-width);
   margin: 0 auto;
 }
 
@@ -63,16 +71,19 @@ footer {
   Убираем стандартные отступы и маркеры списка навигации.
 */
 .site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
   padding: 0;
-  margin: 16px 0 0;
+  margin: 0;
   list-style: none;
 }
 
 /*
-  Добавляем расстояние между пунктами меню.
+  Отступы между пунктами меню задаются через gap у списка.
 */
 .site-nav__list li {
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 /*
@@ -106,6 +117,7 @@ footer {
 .section {
   max-width: var(--container-width);
   margin: 0 auto var(--space-xl);
+  scroll-margin-top: 140px;
 }
 
 .section h2 {
@@ -114,11 +126,18 @@ footer {
 
 
 /*
-  Карточка товара — самостоятельный блок.
-  На следующих занятиях карточки будут доработаны и выстроены в сетку.
+  Grid размещает карточки в три колонки, Flexbox выравнивает их содержимое.
 */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
 .product-card {
-  margin-bottom: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -131,6 +150,37 @@ footer {
 
 .product-card h3 {
   margin-top: 0;
+}
+
+.product-card__button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+footer {
+  scroll-margin-top: 140px;
+}
+
+@media (max-width: 800px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  header,
+  main,
+  footer {
+    padding: var(--space-md);
+  }
+
+  .site-nav__list {
+    gap: var(--space-sm) var(--space-md);
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 
