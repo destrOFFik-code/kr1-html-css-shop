@@ -10,6 +10,13 @@ const closeDialogButton = document.getElementById('close-order-dialog');
 // Получаем скрытое поле, в которое будет записан выбранный товар.
 const selectedProductInput = document.getElementById('selected-product');
 
+// Клик по свободному месту снимает выбор поля и возвращает светлый фон.
+orderDialog.addEventListener('click', (event) => {
+  if (!event.target.closest('input, select, textarea, label, button')) {
+    document.getElementById('order-dialog-title').focus({ preventScroll: true });
+  }
+});
+
 // Перебираем все кнопки «Заказать».
 orderButtons.forEach((button) => {
   button.addEventListener('click', () => {

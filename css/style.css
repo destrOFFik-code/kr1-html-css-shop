@@ -150,6 +150,8 @@ footer {
 
 .button:hover {
   background-color: var(--color-primary-dark);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 .button:focus-visible {
@@ -366,6 +368,7 @@ a:focus-visible {
   padding: 10px 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
+  background-color: var(--color-white);
   font: inherit;
 }
 
@@ -379,10 +382,20 @@ a:focus-visible {
   color: var(--color-muted);
 }
 
-.form-field input:hover,
-.form-field select:hover,
-.form-field textarea:hover {
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
   border-color: var(--color-primary);
+}
+
+.order-form:has(.form-field :is(input:not([type="checkbox"]), select, textarea):focus)
+  .form-field :is(input:not([type="checkbox"]), select, textarea):not(:focus) {
+  background-color: #eeeeee;
+}
+
+.order-form:has(.form-field :is(input:not([type="checkbox"]), select, textarea):focus)
+  .form-field :is(input:not([type="checkbox"]), select, textarea):not(:focus):not([aria-invalid="true"]) {
+  border-color: var(--color-muted);
 }
 
 .form-field input:focus-visible,
