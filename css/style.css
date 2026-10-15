@@ -96,7 +96,7 @@ a:focus-visible {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   padding: 0;
   margin: 0;
   list-style: none;
@@ -108,7 +108,7 @@ a:focus-visible {
 
 .site-nav__link {
   display: inline-block;
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) 12px;
   color: var(--color-primary);
   text-decoration: none;
   border-radius: var(--radius-sm);
@@ -148,7 +148,7 @@ a:focus-visible {
 .section {
   max-width: var(--container-width);
   margin: 0 auto var(--space-xl);
-  scroll-margin-top: 140px;
+  scroll-margin-top: 180px;
 }
 
 .section__title {
@@ -195,6 +195,7 @@ a:focus-visible {
 }
 
 .product-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -311,6 +312,7 @@ a:focus-visible {
   font: inherit;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .button--primary {
@@ -343,6 +345,8 @@ a:focus-visible {
 .button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
+  outline: none;
 }
 
 /* 8. Модальное окно и независимая форма. */
@@ -437,9 +441,9 @@ a:focus-visible {
 
 /* 9. Подвал. */
 .site-footer {
-  padding: var(--space-lg);
+  padding: var(--space-lg) var(--space-lg) 88px;
   background-color: var(--color-surface);
-  scroll-margin-top: 140px;
+  scroll-margin-top: 180px;
 }
 
 .site-footer__inner {
@@ -447,17 +451,316 @@ a:focus-visible {
   margin: 0 auto;
 }
 
-/* 10. Существующие правила адаптивности и уменьшения движения. */
+/* 10. Иллюстрации, отзывы и дополнения практики №8. */
+.skip-link {
+  position: fixed;
+  top: var(--space-sm);
+  left: var(--space-md);
+  z-index: 30;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-white);
+  background-color: var(--color-primary-dark);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.hero__eyebrow {
+  margin-top: 0;
+  color: var(--color-primary-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.hero__description {
+  max-width: 720px;
+}
+
+.product-card {
+  overflow-wrap: anywhere;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 57, 120, 0.12);
+  transform: translateY(-3px);
+}
+
+.product-card:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-surface-accent);
+}
+
+.product-card:active {
+  transform: translateY(0);
+}
+
+.product-card--new {
+  border-style: dashed;
+}
+
+.product-card__badge {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 1;
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--color-white);
+  background-color: var(--color-primary-dark);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.product-card__image-link {
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+.product-card__image,
+.product-detail__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 5;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-accent);
+}
+
+.product-card__category,
+.product-detail__category {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.product-card__title-link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.product-card__title-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.product-card__price {
+  font-weight: 700;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.review-card__title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.review-card__rating {
+  margin: var(--space-sm) 0;
+  color: var(--color-primary-dark);
+  letter-spacing: 2px;
+}
+
+.review-card__quote {
+  margin: 0 0 var(--space-md);
+}
+
+.review-card__author {
+  margin: auto 0 var(--space-sm);
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.review-card__link {
+  align-self: flex-start;
+}
+
+.back-to-top {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  z-index: 20;
+  padding: 12px var(--space-md);
+  border: 1px solid var(--color-primary-dark);
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  background-color: var(--color-primary-dark);
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+}
+
+.back-to-top:hover,
+.back-to-top:active {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button--primary:disabled {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.product-links,
+.action-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.product-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  max-width: var(--container-width);
+  margin: 0 auto var(--space-xl);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  scroll-margin-top: 180px;
+}
+
+.product-detail__figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.product-detail__caption {
+  margin-top: var(--space-sm);
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.product-detail__content {
+  min-width: 0;
+}
+
+.product-detail__title {
+  margin: var(--space-sm) 0;
+}
+
+.product-detail__price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.product-table__caption {
+  margin-bottom: var(--space-sm);
+  text-align: left;
+  font-weight: 700;
+}
+
+.product-table__head {
+  background-color: var(--color-surface-accent);
+}
+
+.product-table__cell {
+  padding: var(--space-sm) 12px;
+  border: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.product-table__cell--label {
+  width: 44%;
+  font-weight: 400;
+}
+
+.order-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-xl);
+}
+
+.order-form--page,
+.order-help {
+  min-width: 0;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.order-help {
+  background-color: var(--color-surface-accent);
+}
+
+.order-help__title {
+  margin-top: 0;
+}
+
+.order-help__steps {
+  padding-left: var(--space-lg);
+}
+
+.order-form__actions {
+  flex-wrap: wrap;
+}
+
+.order-dialog__product {
+  color: var(--color-primary-dark);
+  font-weight: 700;
+}
+
+/* 11. Раскладка на узких экранах и уменьшение движения. */
 @media (max-width: 800px) {
   .products-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .catalog-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "filters" "products";
+  }
+
+  .product-detail,
+  .order-layout,
+  .reviews-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-header {
+    position: static;
+  }
+
+  .section,
+  .product-detail {
+    scroll-margin-top: var(--space-md);
   }
 }
 
 @media (max-width: 540px) {
   .site-header,
-  .page__main,
-  .site-footer {
+  .page__main {
     padding: var(--space-md);
   }
 
@@ -469,6 +772,20 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  .site-footer {
+    padding: var(--space-md) var(--space-md) 88px;
+  }
+
+  .product-detail,
+  .order-form--page {
+    padding: var(--space-md);
+  }
+
+  .back-to-top {
+    right: var(--space-md);
+    bottom: var(--space-md);
+  }
+
   .section {
     scroll-margin-top: var(--space-md);
   }
@@ -477,5 +794,14 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .button,
+  .product-card {
+    transition: none;
+  }
+
+  .product-card:hover {
+    transform: none;
   }
 }
