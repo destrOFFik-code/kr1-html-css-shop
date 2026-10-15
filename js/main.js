@@ -2,13 +2,32 @@
 const orderDialog = document.getElementById('order-dialog');
 
 // Получаем кнопки заказа и общую кнопку обратной связи.
-const orderButtons = document.querySelectorAll('.product-card__button, [data-open-order]');
+const orderButtons = document.querySelectorAll('.product-card__button[data-product], [data-open-order]');
 
 // Получаем кнопку закрытия модального окна.
 const closeDialogButton = document.getElementById('close-order-dialog');
 
 // Получаем скрытое поле, в которое будет записан выбранный товар.
 const selectedProductInput = document.getElementById('selected-product');
+
+// Признак ошибки нужен доступности, БЭМ-модификатор — оформлению поля.
+function setFieldInvalid(field, invalid) {
+  const fieldClass = {
+    INPUT: 'order-form__input',
+    SELECT: 'order-form__select',
+    TEXTAREA: 'order-form__textarea',
+  }[field.tagName];
+
+  if (fieldClass) {
+    field.classList.toggle(`${fieldClass}--error`, invalid);
+  }
+
+  if (invalid) {
+    field.setAttribute('aria-invalid', 'true');
+  } else {
+    field.removeAttribute('aria-invalid');
+  }
+}
 
 // Клик по свободному месту снимает выбор поля и возвращает светлый фон.
 orderDialog.addEventListener('click', (event) => {
@@ -25,7 +44,7 @@ orderButtons.forEach((button) => {
 
     // Убираем ошибки от предыдущей попытки заполнения.
     orderForm.querySelectorAll('[aria-invalid]').forEach((field) => {
-      field.removeAttribute('aria-invalid');
+      setFieldInvalid(field, false);
     });
     successMessage.hidden = true;
 
@@ -59,7 +78,7 @@ orderForm.addEventListener('submit', (event) => {
 
   formElements.forEach((element) => {
     if (element.willValidate) {
-      element.removeAttribute('aria-invalid');
+      setFieldInvalid(element, false);
     }
   });
 
@@ -67,7 +86,7 @@ orderForm.addEventListener('submit', (event) => {
   if (!orderForm.checkValidity()) {
     formElements.forEach((element) => {
       if (element.willValidate && !element.checkValidity()) {
-        element.setAttribute('aria-invalid', 'true');
+        setFieldInvalid(element, true);
       }
     });
 
