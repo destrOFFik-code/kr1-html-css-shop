@@ -27,6 +27,7 @@
   --radius-lg: 12px;
   --container-width: 1100px;
   --motion-factor: 1;
+  --header-height: 88px;
 }
 
 /* 2. Сброс и общие правила документа. Компоненты оформляются классами. */
@@ -36,10 +37,12 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
 }
 
 .page {
   margin: 0;
+  padding-top: var(--header-height);
   font-family: Arial, sans-serif;
   line-height: 1.5;
   color: var(--color-text);
@@ -70,17 +73,24 @@ a:focus-visible {
 
 /* 3. Шапка и самостоятельный блок навигации. */
 .site-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 15;
+  height: var(--header-height);
   padding: var(--space-lg);
   background-color: var(--color-surface);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
 }
 
 .site-header__inner {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
   max-width: var(--container-width);
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -236,8 +246,8 @@ a:focus-visible {
 .catalog-filters {
   grid-area: filters;
   position: sticky;
-  top: var(--space-lg);
-  max-height: calc(100dvh - 2 * var(--space-lg));
+  top: calc(var(--header-height) + var(--space-lg));
+  max-height: calc(100dvh - var(--header-height) - 2 * var(--space-lg));
   overflow-y: auto;
   min-width: 0;
   padding: var(--space-md);
@@ -791,6 +801,38 @@ a:focus-visible {
 }
 
 /* 11. Раскладка на узких экранах и уменьшение движения. */
+@media (max-width: 1100px) {
+  :root {
+    --header-height: 152px;
+  }
+
+  .site-header {
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: var(--space-sm);
+  }
+
+  .site-header__logo {
+    justify-self: start;
+  }
+
+  .site-nav__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .site-nav__link {
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
 @media (max-width: 800px) {
   .products-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -820,6 +862,14 @@ a:focus-visible {
 }
 
 @media (max-width: 540px) {
+  :root {
+    --header-height: 200px;
+  }
+
+  .site-nav__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .site-header,
   .page__main {
     padding: var(--space-md);
