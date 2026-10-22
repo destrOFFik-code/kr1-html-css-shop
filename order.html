@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Учебная форма заявки ShopProject: выбранный товар, контактные данные, тема обращения и комментарий.">
+  <meta name="description" content="Учебная форма заявки ShopProject: выбранный товар или услуга, контактные данные, тема обращения и комментарий.">
   <title>Оформление заявки — ShopProject</title>
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="ShopProject">
   <meta property="og:title" content="Оформление заявки — ShopProject">
-  <meta property="og:description" content="Учебная форма заявки ShopProject: выбранный товар, контактные данные, тема обращения и комментарий.">
+  <meta property="og:description" content="Учебная форма заявки ShopProject: выбранный товар или услуга, контактные данные, тема обращения и комментарий.">
   <meta property="og:url" content="https://destroffik-code.github.io/kr1-html-css-shop/order.html">
   <meta property="og:image" content="https://destroffik-code.github.io/kr1-html-css-shop/images/preview.jpg">
   <meta property="og:image:width" content="1200">
@@ -28,11 +28,11 @@
           <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
           <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Каталог</a></li>
           <li class="site-nav__item"><a class="site-nav__link" href="product.html">Товары</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="services.html">Услуги</a></li>
           <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="order.html" aria-current="page">Заявка</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="delivery.html">Доставка</a></li>
           <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
-          <li class="site-nav__item"><a class="site-nav__link" href="index.html#advantages">Преимущества</a></li>
-          <li class="site-nav__item"><a class="site-nav__link" href="index.html#popular">Популярные товары</a></li>
-          <li class="site-nav__item"><a class="site-nav__link" href="index.html#contacts">Обратная связь</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#faq">Вопросы</a></li>
         </ul>
       </nav>
     </div>
@@ -50,12 +50,15 @@
       <div class="order-layout">
   <form class="order-form order-form--page" id="order-form" action="#" method="post" aria-describedby="order-note" novalidate>
     <div class="order-form__field">
-      <label class="order-form__label" for="selected-product">Товар</label>
+      <label class="order-form__label" for="selected-product">Товар или услуга</label>
       <select class="order-form__select" id="selected-product" name="selected-product">
-        <option value="">Обращение без выбора товара</option>
+        <option value="">Общий вопрос без выбора позиции</option>
           <option value="lamp">Лампа «Линия» — 1000 руб.</option>
           <option value="organizer">Органайзер «Порядок» — 1500 руб.</option>
           <option value="stand">Подставка «Опора» — 2000 руб.</option>
+          <option value="mat">Коврик «Контур» — 900 руб.</option>
+          <option value="selection">Подбор рабочего места — 700 руб.</option>
+          <option value="setup">Организация стола — 1200 руб.</option>
       </select>
     </div>
 
@@ -113,7 +116,7 @@
       <label class="order-form__label" for="order-topic">Тема заявки</label>
       <select class="order-form__select" id="order-topic" name="topic" required>
         <option value="">Выберите тему</option>
-        <option value="product">Заказ товара</option>
+        <option value="product">Заявка на товар или услугу</option>
         <option value="consultation">Консультация</option>
         <option value="delivery">Доставка</option>
       </select>
@@ -149,11 +152,11 @@
         <aside class="order-help" aria-labelledby="order-help-title">
           <h2 class="order-help__title" id="order-help-title">Как заполнить</h2>
           <ol class="order-help__steps">
-            <li>Выберите товар или оставьте общий вопрос.</li>
+            <li>Выберите товар, услугу или оставьте общий вопрос.</li>
             <li>Введите имя и контакты в указанном формате.</li>
             <li>Уточните вопрос в комментарии и подтвердите согласие.</li>
           </ol>
-          <p>Если вы пришли со страницы товара, он уже выбран в списке.</p>
+          <p>При переходе из каталога товар или услуга уже выбраны в списке.</p>
           <a href="product.html">Свериться с характеристиками</a>
         </aside>
       </div>

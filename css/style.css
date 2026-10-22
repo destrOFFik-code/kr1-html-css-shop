@@ -68,9 +68,6 @@ a:focus-visible {
 
 /* 3. Шапка и самостоятельный блок навигации. */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   padding: var(--space-lg);
   background-color: var(--color-surface);
 }
@@ -148,7 +145,7 @@ a:focus-visible {
 .section {
   max-width: var(--container-width);
   margin: 0 auto var(--space-xl);
-  scroll-margin-top: 180px;
+  scroll-margin-top: var(--space-lg);
 }
 
 .section__title {
@@ -204,6 +201,8 @@ a:focus-visible {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background-color: var(--color-bg);
+  overflow-wrap: anywhere;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .product-card:hover,
@@ -235,6 +234,10 @@ a:focus-visible {
 
 .catalog-filters {
   grid-area: filters;
+  position: sticky;
+  top: var(--space-lg);
+  max-height: calc(100dvh - 2 * var(--space-lg));
+  overflow-y: auto;
   min-width: 0;
   padding: var(--space-md);
   border: 1px solid var(--color-border);
@@ -429,6 +432,7 @@ a:focus-visible {
   display: flex;
   gap: var(--space-md);
   margin-top: var(--space-lg);
+  flex-wrap: wrap;
 }
 
 .success-message {
@@ -443,7 +447,7 @@ a:focus-visible {
 .site-footer {
   padding: var(--space-lg) var(--space-lg) 88px;
   background-color: var(--color-surface);
-  scroll-margin-top: 180px;
+  scroll-margin-top: var(--space-lg);
 }
 
 .site-footer__inner {
@@ -478,11 +482,6 @@ a:focus-visible {
   max-width: 720px;
 }
 
-.product-card {
-  overflow-wrap: anywhere;
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-}
-
 .product-card:hover {
   box-shadow: 0 6px 20px rgba(0, 57, 120, 0.12);
   transform: translateY(-3px);
@@ -495,10 +494,6 @@ a:focus-visible {
 
 .product-card:active {
   transform: translateY(0);
-}
-
-.product-card--new {
-  border-style: dashed;
 }
 
 .product-card__badge {
@@ -639,7 +634,7 @@ a:focus-visible {
   padding: var(--space-lg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  scroll-margin-top: 180px;
+  scroll-margin-top: var(--space-lg);
 }
 
 .product-detail__figure {
@@ -722,13 +717,44 @@ a:focus-visible {
   padding-left: var(--space-lg);
 }
 
-.order-form__actions {
-  flex-wrap: wrap;
-}
-
 .order-dialog__product {
   color: var(--color-primary-dark);
   font-weight: 700;
+}
+
+/* FAQ раскрывается штатным элементом details, без JavaScript. */
+.faq {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.faq__item {
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.faq__question {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.faq__question:hover {
+  color: var(--color-primary);
+}
+
+.faq__question:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.faq__item[open] {
+  border-color: var(--color-primary);
+}
+
+.faq__answer {
+  margin-bottom: 0;
 }
 
 /* 11. Раскладка на узких экранах и уменьшение движения. */
@@ -748,8 +774,10 @@ a:focus-visible {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .site-header {
+  .catalog-filters {
     position: static;
+    max-height: none;
+    overflow-y: visible;
   }
 
   .section,
@@ -762,10 +790,6 @@ a:focus-visible {
   .site-header,
   .page__main {
     padding: var(--space-md);
-  }
-
-  .site-header {
-    position: static;
   }
 
   .products-grid {
