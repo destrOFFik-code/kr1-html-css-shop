@@ -5,6 +5,7 @@
   --color-muted: #666666;
   --color-primary: #0057b8;
   --color-primary-dark: #003f86;
+  --color-primary-pressed: #002d61;
   --color-border: #dddddd;
   --color-surface: #f7f7f7;
   --color-surface-accent: #eef5ff;
@@ -25,6 +26,7 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --container-width: 1100px;
+  --motion-factor: 1;
 }
 
 /* 2. Сброс и общие правила документа. Компоненты оформляются классами. */
@@ -202,10 +204,9 @@ a:focus-visible {
   border-radius: var(--radius-md);
   background-color: var(--color-bg);
   overflow-wrap: anywhere;
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
-.product-card:hover,
 .product-card--featured {
   border-color: var(--color-primary);
 }
@@ -310,22 +311,17 @@ a:focus-visible {
 .button {
   display: inline-block;
   padding: var(--space-sm) var(--space-md);
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   font: inherit;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .button--primary {
   color: var(--color-white);
   background-color: var(--color-primary);
-}
-
-.button--primary:hover {
-  color: var(--color-white);
-  background-color: var(--color-primary-dark);
 }
 
 .button--secondary {
@@ -334,22 +330,30 @@ a:focus-visible {
   border: 1px solid var(--color-primary);
 }
 
-.button--secondary:hover {
-  color: var(--color-white);
-  background-color: var(--color-primary);
-}
-
-.button:hover,
 .button:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 3px solid var(--color-primary);
   outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--color-white);
 }
 
-.button:disabled {
-  opacity: 0.6;
+.button:active:not(:disabled) {
+  color: var(--color-white);
+  background-color: var(--color-primary-pressed);
+  border-color: var(--color-primary-pressed);
+  transform: translateY(calc(1px * var(--motion-factor)));
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.button:disabled,
+.button:disabled:hover,
+.button:disabled:active {
+  color: var(--color-muted);
+  background-color: var(--color-field-muted);
+  border-color: var(--color-border);
   cursor: not-allowed;
   transform: none;
   outline: none;
+  box-shadow: none;
 }
 
 /* 8. Модальное окно и независимая форма. */
@@ -482,17 +486,16 @@ a:focus-visible {
   max-width: 720px;
 }
 
-.product-card:hover {
-  box-shadow: 0 6px 20px rgba(0, 57, 120, 0.12);
-  transform: translateY(-3px);
-}
-
 .product-card:focus-within {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-surface-accent);
+  background-color: var(--color-surface-accent);
+  box-shadow: 0 0 0 2px var(--color-primary);
 }
 
 .product-card:active {
+  border-color: var(--color-primary-pressed);
+  background-color: var(--color-surface-accent);
+  box-shadow: inset 0 0 0 1px var(--color-primary-pressed);
   transform: translateY(0);
 }
 
@@ -599,22 +602,52 @@ a:focus-visible {
   background-color: var(--color-primary-dark);
   text-decoration: none;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
-.back-to-top:hover,
+.back-to-top:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
 .back-to-top:active {
   color: var(--color-white);
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-pressed);
+  transform: translateY(calc(1px * var(--motion-factor)));
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-.button:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
+/* Подъём и тень при наведении нужны только устройствам с точным указателем. */
+@media (hover: hover) and (pointer: fine) {
+  .button--primary:hover:not(:disabled):not(:active) {
+    color: var(--color-white);
+    background-color: var(--color-primary-dark);
+    box-shadow: 0 4px 10px rgba(0, 57, 120, 0.2);
+    transform: translateY(calc(-2px * var(--motion-factor)));
+  }
 
-.button--primary:disabled {
-  color: var(--color-white);
-  background-color: var(--color-primary);
+  .button--secondary:hover:not(:disabled):not(:active) {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    box-shadow: 0 4px 10px rgba(0, 57, 120, 0.2);
+    transform: translateY(calc(-2px * var(--motion-factor)));
+  }
+
+  .product-card:hover:not(:active) {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 24px rgba(0, 57, 120, 0.18);
+    transform: translateY(calc(-4px * var(--motion-factor)));
+  }
+
+  .product-card:focus-within:hover:not(:active) {
+    box-shadow: 0 0 0 2px var(--color-primary), 0 8px 24px rgba(0, 57, 120, 0.18);
+  }
+
+  .back-to-top:hover:not(:active) {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    transform: translateY(calc(-2px * var(--motion-factor)));
+  }
 }
 
 .product-links,
@@ -816,16 +849,17 @@ a:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-factor: 0;
+  }
+
   html {
     scroll-behavior: auto;
   }
 
   .button,
-  .product-card {
+  .product-card,
+  .back-to-top {
     transition: none;
-  }
-
-  .product-card:hover {
-    transform: none;
   }
 }
